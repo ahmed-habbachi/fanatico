@@ -1,0 +1,13 @@
+ion-card{
+    display: flex;
+    flex-direction: column;
+    width: 90% !important;
+    margin-right:5% !important;
+    margin-left: 5% !important;
+  }
+  img {
+    object-fit: cover;
+    width: 1500px;
+    height: 300px;
+
+  }

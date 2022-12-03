@@ -1,0 +1,48 @@
+<a [routerLink]="'/sport-field/'+[id]" style="text-decoration: none;" routerLinkActive="active">
+
+    <ion-card>
+      <ion-grid>
+        <ion-row>
+          <ion-col size-sm="6" size-xs="12">
+            <div style="text-align: center;">
+            <img [src]="sportField.picture" /></div>
+          </ion-col>
+          <ion-col size-sm="6" size-xs="12">
+            <ion-card-header>
+              <ion-card-title>
+                <ion-grid>
+                  <ion-col size-md="4" size-sm="6" size-xs="12">
+                    <div style="font-weight: bolder; font-size: larger;">
+                      {{sportField.name}}
+                    </div>
+                  </ion-col>
+
+                  <ion-col size-md="4" size-sm="6" size-xs="12">
+                    <div>
+                      <ion-icon name="phone-portrait-outline"></ion-icon>{{sportField.phone}}
+                    </div>
+                  </ion-col>
+
+                  <ion-col size-md="4" size-sm="6" size-xs="12">
+                    <div>
+                      <ion-icon name="location-outline"></ion-icon>  {{sportField.city}},  {{sportField.region}}
+                    </div>
+                  </ion-col>
+
+                </ion-grid>
+              </ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content>
+              {{sportField.description}}
+              <br>
+              <label  style="font-weight: bolder;" >
+                SportType: {{sportField.sportType?.name}}
+              </label>
+            </ion-card-content>
+          </ion-col>
+        </ion-row>
+        </ion-grid>
+    </ion-card>
+
+</a>

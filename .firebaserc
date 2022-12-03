@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "fanatico-db": {
+      "hosting": {
+        "app": [
+          "fanatico"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "fanatico-db"
+  }
+}

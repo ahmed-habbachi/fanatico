@@ -1,0 +1,47 @@
+<ion-app>
+  <!-- <ion-split-pane contentId="main-content"> -->
+    <ion-menu menuId="main-menu" contentId="main-content" type="overlay">
+      <ion-header>
+        <ion-toolbar translucent color="warning">
+          <ion-title>Menu</ion-title>
+          <!-- <ion-note>break point production</ion-note> -->
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list id="inbox-list">
+          <ion-menu-toggle auto-hide="true" *ngFor="let menuEntry of appMainMenu; let i = index">
+            <ion-item routerDirection="root" [routerLink]="[menuEntry.link]" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon slot="start" [ios]="menuEntry.iconName + '-outline'" [md]="menuEntry.iconName + '-sharp'"></ion-icon>
+              <ion-label>{{ menuEntry.caption }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+
+        <ion-list id="labels-list">
+          <ion-list-header>Labels</ion-list-header>
+
+          <ion-item *ngFor="let label of labels" lines="none">
+            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
+            <ion-label>{{ label }}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+      <ion-footer>
+        <ion-menu-toggle>
+          <ion-button color="danger" expand="full" (click)="logout()">Logout</ion-button>
+        </ion-menu-toggle>
+      </ion-footer>
+    </ion-menu>
+    <!-- <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header> -->
+    <ion-content class="ion-padding">
+      <ion-router-outlet id="main-content"></ion-router-outlet>
+    </ion-content>
+  <!-- </ion-split-pane> -->
+</ion-app>

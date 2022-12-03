@@ -1,0 +1,7 @@
+{
+  "name": "fanatico",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
