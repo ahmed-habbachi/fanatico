@@ -1,13 +1,15 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { User } from '@angular/fire/auth';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ToastController, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { ImagePicker } from '@awesome-cordova-plugins/image-picker/ngx';
 import { Subscription } from 'rxjs';
 import { SportField, SportFieldType } from 'src/app/interfaces';
 import { City } from 'src/app/interfaces/country.interface';
 import { AuthService, SportFieldService } from 'src/app/services';
 import { LocationService } from 'src/app/services/location.service';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'fan-sport-field-form',
@@ -19,7 +21,7 @@ export class SportFieldFormComponent implements OnInit, OnDestroy {
     id: '',
     name: '',
     description: '',
-    country: '',
+    country: 'Tunisia',
     city: '',
     region: '',
     phone: '',
@@ -44,7 +46,7 @@ export class SportFieldFormComponent implements OnInit, OnDestroy {
   sportFieldTypes: SportFieldType[];
 
   constructor(
-    private toastController: ToastController,
+    private imagePicker: ImagePicker,
     private ctrl: ModalController,
     private sportFieldService: SportFieldService,
     private router: Router,
@@ -70,7 +72,7 @@ export class SportFieldFormComponent implements OnInit, OnDestroy {
     this.sportFieldForm = new FormGroup({
       name: new FormControl(this.sportField.name, [Validators.required, Validators.maxLength(46)]),
       description: new FormControl(this.sportField.description, Validators.required),
-      country: new FormControl(this.sportField.country, Validators.required),
+      country: new FormControl({value: this.sportField.country, disabled: true},Validators.required),
       city: new FormControl(this.sportField.city, Validators.required),
       region: new FormControl(this.sportField.region, Validators.required),
       phone: new FormControl(this.sportField.phone, [Validators.required, Validators.minLength(8),
@@ -99,5 +101,22 @@ export class SportFieldFormComponent implements OnInit, OnDestroy {
 
   dismissModal() {
     this.ctrl.dismiss();
+  }
+
+  getPicture() {
+    if (Capacitor.isNativePlatform()) {
+      const options = {
+        width: 800,
+        height: 600,
+    };
+
+    this.imagePicker.getPictures(options).then((results) => {
+      // eslint-disable-next-line @typescript-eslint/prefer-for-of
+      for (let i = 0; i < results.length; i++) {
+          console.log('Image URI: ' + results[i]);
+      }
+    }, (err) => { });
+    } else {
+    }
   }
 }

@@ -59,7 +59,7 @@
                     <ion-col size-md="4" size-sm="4" size-xs="12">
                         <ion-item>
                             <ion-label position="floating"><strong>Country</strong></ion-label>
-                            <ion-select class="form-control" formControlName="country" id="country" [disabled]="false" value="Tunisia">
+                            <ion-select class="form-control" formControlName="country" id="country">
                                 <ion-select-option value="Tunisia">Tunisia</ion-select-option>
                             </ion-select>
                         </ion-item>
@@ -133,8 +133,9 @@
                 <ion-row>
                     <ion-col>
                         <ion-item>
-                            <ion-label position="floating"><strong>Picture URL</strong></ion-label>
-                            <ion-input class="form-control" formControlName="picture" id="picture"></ion-input>
+                            <ion-button (click)="getPicture()">Select Pics</ion-button>
+                            <!-- <ion-label position="floating"><strong>Picture URL</strong></ion-label>
+                            <ion-input class="form-control" formControlName="picture" id="picture"></ion-input> -->
                         </ion-item>
                         <div *ngIf="sfControl.picture.invalid &&  (sfControl.picture.dirty || sfControl.picture.touched)" class="invalid-feedback">
                             <div *ngIf="sfControl.picture.errors.required"> URL required</div>

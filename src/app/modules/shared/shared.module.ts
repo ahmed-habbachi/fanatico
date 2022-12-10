@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { IonicModule } from '@ionic/angular';
-import { SportFieldItemModule } from './components/sport-field-item/sport-field-item.module';
 import { SportFieldItemComponent } from './components/sport-field-item/sport-field-item.component';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [
@@ -14,15 +13,13 @@ import { SportFieldItemComponent } from './components/sport-field-item/sport-fie
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    IonicModule,
-    // SportFieldItemModule
+    IonicModule
   ],
   exports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    IonicModule,
-    // SportFieldItemModule
+    IonicModule
   ]
 })
 export class SharedModule {}
