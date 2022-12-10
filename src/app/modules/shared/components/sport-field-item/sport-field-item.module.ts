@@ -7,9 +7,9 @@ import { SportFieldItemComponent } from './sport-field-item.component';
   imports: [
     SharedModule,
   ],
-  declarations: [SportFieldItemComponent],
-  exports:[
-    SportFieldItemComponent
-  ]
+  // declarations: [SportFieldItemComponent],
+  // exports:[
+  //   SportFieldItemComponent
+  // ]
 })
 export class SportFieldItemModule {}

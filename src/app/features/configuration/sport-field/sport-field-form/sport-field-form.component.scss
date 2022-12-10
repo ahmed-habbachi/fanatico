@@ -1,0 +1,19 @@
+ion-card{
+  display: flex;
+  flex-direction: column;
+  width: 80% !important;
+  margin-right:10% !important;
+  margin-left: 10% !important;
+}
+.invalid-feedback{
+  color: red;
+  padding: 0.9rem;
+}
+
+agm-map {
+  height: 300px;
+}
+
+ion-list{
+  margin: 2%;
+}

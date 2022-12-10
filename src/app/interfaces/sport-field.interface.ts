@@ -9,13 +9,13 @@ export interface SportField {
   city: string;
   region: string;
   phone: string;
-  fax: string;
+  phone2: string;
   email: string;
   picture: string;
-  sportType: SportFieldType;
-  facebook: string;
-  instagram: string;
+  sportType: string;
+  facebook?: string;
+  instagram?: string;
   latitude: number;
   longitude: number;
-  owner: User;
+  owner: string;
 }

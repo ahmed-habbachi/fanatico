@@ -1,0 +1,186 @@
+<ion-header>
+    <ion-toolbar color="warning">
+        <ion-title>Edit sport Field</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="dismissModal()">Close</ion-button>
+        </ion-buttons>
+        <!-- <ion-title *ngIf="editMode">Edit sport Field</ion-title>
+        <ion-title *ngIf="!editMode">Add sport field</ion-title>
+        <ion-buttons slot="end" *ngIf="!editMode">
+            <ion-button (click)="dismissModal()">Close</ion-button>
+        </ion-buttons>
+        <ion-buttons slot="start" *ngIf="editMode">
+            <ion-back-button></ion-back-button>
+        </ion-buttons> -->
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="sportFieldForm" (ngSubmit)="submit()">
+        <ion-list lines="full" class="ion-no-margin">
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <ion-item>
+                            <ion-label position="floating"><strong>Name</strong> </ion-label>
+                            <ion-input class="form-control" formControlName="name" id="name"></ion-input>
+                        </ion-item>
+                        <div *ngIf="sfControl.name.invalid &&  (sfControl.name.dirty || sfControl.name.touched)" class="invalid-feedback">
+                            <div *ngIf="sfControl.name.errors.required"> Name is required</div>
+                        </div>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-item>
+                            <ion-label position="floating"><strong>TypeSport</strong></ion-label>
+                            <ion-select formControlName="selectedType" class="form-control" id="typeSport">
+                                <ion-select-option *ngFor="let type of sportFieldTypes" [value]="type.id">{{type.name | titlecase}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <div *ngIf="sfControl.selectedType.invalid &&  (sfControl.selectedType.dirty || sfControl.selectedType.touched)" class="invalid-feedback">
+                            <div *ngIf="sfControl.selectedType.errors.required"> Select type</div>
+                        </div>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-item>
+                            <ion-label position="floating"><strong>Email</strong></ion-label>
+                            <ion-input type="email" class="form-control" id="email" formControlName="email"></ion-input>
+                        </ion-item>
+                        <div *ngIf="sfControl.email.invalid" class="invalid-feedback">
+                            <div *ngIf="sfControl.email.errors.email">Email must be a valid email address</div>
+                        </div>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size-md="4" size-sm="4" size-xs="12">
+                        <ion-item>
+                            <ion-label position="floating"><strong>Country</strong></ion-label>
+                            <ion-select class="form-control" formControlName="country" id="country" [disabled]="false" value="Tunisia">
+                                <ion-select-option value="Tunisia">Tunisia</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <!-- <div *ngIf="sfControl.country.invalid &&  (sfControl.country.dirty || sfControl.country.touched)"
+                          class="invalid-feedback">
+                          <div *ngIf="sfControl.country.errors.required"> Select country</div>
+                      </div> -->
+                    </ion-col>
+                    <ion-col size-md="4" size-sm="4" size-xs="12">
+                        <ion-item>
+                            <ion-label position="floating"><strong>City</strong></ion-label>
+                            <ion-select class="form-control" formControlName="city" id="city">
+                                <ion-select-option *ngFor="let city of cities" [value]="city">{{city}}</ion-select-option>
+                                <!-- <ion-select-option *ngFor="let governorate of locationService.getGovernorates('Tunisia')" [value]="governorate">{{governorate}}</ion-select-option> -->
+                            </ion-select>
+                        </ion-item>
+                        <div *ngIf="sfControl.city.invalid &&  (sfControl.city.dirty || sfControl.city.touched)" class="invalid-feedback">
+                            <div *ngIf="sfControl.city.errors.required"> Select city</div>
+                        </div>
+                    </ion-col>
+                    <ion-col size-md="4" size-sm="4" size-xs="12">
+                        <ion-item *ngIf="sfControl.city.valid">
+                            <ion-label position="floating"><strong>Region</strong></ion-label>
+                            <ion-select class="form-control" formControlName="region" id="region">
+                                <ion-select-option *ngFor="let municipality of locationService.getMunicipalities('Tunisia', sfControl.city.value)" [value]="municipality">{{municipality}}</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <div *ngIf="sfControl.region.invalid &&  (sfControl.region.dirty || sfControl.region.touched)" class="invalid-feedback">
+                            <div *ngIf="sfControl.region.errors.required"> Select region</div>
+                        </div>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size-md="6" size-sm="6" size-xs="12">
+                        <ion-item>
+                            <ion-label position="floating"><strong>Phone</strong></ion-label>
+                            <ion-input class="form-control" type="tel" id="phone" formControlName="phone"></ion-input>
+                        </ion-item>
+                        <div *ngIf="sfControl.phone.invalid &&  (sfControl.phone.dirty || sfControl.phone.touched)" class="invalid-feedback">
+                            <div *ngIf="sfControl.phone.errors.required"> Phone number required</div>
+                            <div *ngIf="sfControl.phone.errors.minlength">Phone number must be at least 8 characters</div>
+                            <div *ngIf="sfControl.phone.errors.maxlength">Phone number must not exceed 11 characters</div>
+                        </div>
+                    </ion-col>
+                    <ion-col size-md="6" size-sm="6" size-xs="12">
+                        <ion-item>
+                            <ion-label position="floating"><strong>Phone2</strong></ion-label>
+                            <ion-input class="form-control" id="phone2" formControlName="phone2"></ion-input>
+                        </ion-item>
+                        <div *ngIf="sfControl.phone2.invalid" class="invalid-feedback">
+                            <div *ngIf="sfControl.phone2.errors.minlength">Fax number must be at least 8 characters</div>
+                            <div *ngIf="sfControl.phone2.errors.maxlength">Fax number must not exceed 11 characters</div>
+                        </div>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size-md="6" size-sm="6" size-xs="12">
+                        <ion-item>
+                            <ion-label position="floating"><strong>Facebook</strong></ion-label>
+                            <ion-input class="form-control" formControlName="facebook" id="picture"></ion-input>
+                        </ion-item>
+
+                    </ion-col>
+                    <ion-col size-md="6" size-sm="6" size-xs="12">
+                        <ion-item>
+                            <ion-label position="floating"><strong>Instagram</strong></ion-label>
+                            <ion-input class="form-control" formControlName="instagram" id="picture"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-item>
+                            <ion-label position="floating"><strong>Picture URL</strong></ion-label>
+                            <ion-input class="form-control" formControlName="picture" id="picture"></ion-input>
+                        </ion-item>
+                        <div *ngIf="sfControl.picture.invalid &&  (sfControl.picture.dirty || sfControl.picture.touched)" class="invalid-feedback">
+                            <div *ngIf="sfControl.picture.errors.required"> URL required</div>
+                        </div>
+
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-item>
+                            <ion-label position="floating"><strong>Description</strong></ion-label>
+                            <ion-textarea class="form-control" formControlName="description" id="description">
+                            </ion-textarea>
+                        </ion-item>
+                        <div *ngIf="sfControl.description.invalid &&  (sfControl.description.dirty || sfControl.description.touched)" class="invalid-feedback">
+                            <div *ngIf="sfControl.description.errors.required"> Description is required</div>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-list>
+        <!-- geo location and google map -->
+        <!-- <ion-card>
+          <ion-card-header>
+              <ion-card-title>
+                  Add location
+              </ion-card-title>
+              <ion-card-subtitle>
+                  <ion-icon name="alert-circle-outline"></ion-icon>
+                  Move the marker with the mouse
+              </ion-card-subtitle>
+
+          </ion-card-header>
+          <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+              <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                  (dragEnd)="markerDragEnd($event)"></agm-marker>
+          </agm-map>
+
+          <h5>Address: {{address}}</h5>
+          <div>Latitude: {{latitude}}</div>
+          <div>Longitude: {{longitude}}</div>
+      </ion-card> -->
+        <section style="text-align: center;">
+            <ion-button shape="round" fill="outline" color="warning" type="submit" [disabled]="! sportFieldForm.valid">
+                Save
+            </ion-button>
+        </section>
+    </form>
+</ion-content>

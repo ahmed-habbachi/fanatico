@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
+import { SportFieldItemModule } from './components/sport-field-item/sport-field-item.module';
 import { SportFieldItemComponent } from './components/sport-field-item/sport-field-item.component';
 
 @NgModule({
@@ -21,8 +22,7 @@ import { SportFieldItemComponent } from './components/sport-field-item/sport-fie
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    // SportFieldItemModule,
-    SportFieldItemComponent
+    // SportFieldItemModule
   ]
 })
 export class SharedModule {}
